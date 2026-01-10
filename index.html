@@ -247,7 +247,7 @@ body{
   </div>
 
   <div class="panel">
-    <div class="panel-title">💰 Price List</div>
+    <div class="panel-title">💰 Price Breakdown</div>
     <div id="rightContent" class="empty">Select a model</div>
   </div>
 
@@ -301,7 +301,8 @@ function populateModels(){
 function selectModel(name){
   selected=data.find(r=>r["VEHICLE NAME"]===name);
   if(!selected){reset();return;}
-  renderLeft();renderRight();
+  renderLeft();
+  renderRight();
 }
 
 function renderLeft(){
@@ -349,20 +350,29 @@ function renderRight(){
       ${row("Incidental",selected["Incidental charges"])}
       ${row("Goodlife",selected["GOODLIFE"])}
       ${row("Acc + Goodlife",selected["ACC+GOODLIFE"])}
+
       <div class="price-row">
         <div class="price-label">Total On-Road</div>
         <div class="price-value price-total">₹${fmt(selected["TOTAL"])}</div>
       </div>
+
+      ${row("Hyp", selected["Hyp"])}
+      ${row("Total HP", selected["Total HP"])}
+
     </div>`;
 }
 
-function row(l,v){
-  return `<div class="price-row">
-    <div class="price-label">${l}</div>
-    <div class="price-value">₹${fmt(v)}</div>
-  </div>`;
+function row(label,value){
+  return `
+    <div class="price-row">
+      <div class="price-label">${label}</div>
+      <div class="price-value">₹${fmt(value)}</div>
+    </div>`;
 }
-function fmt(v){return (+v||0).toLocaleString("en-IN")}
+
+function fmt(v){
+  return (+v||0).toLocaleString("en-IN");
+}
 
 function showLoading(){
   leftContent.innerHTML=rightContent.innerHTML=
@@ -381,4 +391,3 @@ window.onload=loadData;
 
 </body>
 </html>
-
