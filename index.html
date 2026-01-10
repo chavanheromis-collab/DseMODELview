@@ -140,7 +140,7 @@ body{
   margin-bottom:10px;
 }
 
-/* ================= TOP COLOR ================= */
+/* ================= TOP COLOUR ================= */
 .top-colour{
   display:inline-flex;
   align-items:center;
@@ -260,6 +260,17 @@ const SHEET_NAME="RAW_prices";
 
 let data=[],selected=null;
 
+/* ===== ROBUST TOP COLOR DETECTION ===== */
+function getTopColor(row){
+  return (
+    row["Color As per Higher Aging"] ||
+    row["COLOR AS PER HIGHER AGING"] ||
+    row["Top Selling Color"] ||
+    row["Top Selling Colour"] ||
+    ""
+  ).toString().trim();
+}
+
 async function loadData(){
   showLoading();
   try{
@@ -294,7 +305,7 @@ function selectModel(name){
 }
 
 function renderLeft(){
-  const topColor=(selected["Color As per Higher Aging"]||"").trim();
+  const topColor=getTopColor(selected);
   const topLower=topColor.toLowerCase();
 
   leftContent.innerHTML=`
@@ -307,17 +318,22 @@ function renderLeft(){
       <strong>Stock:</strong> ${selected.Stock||"N/A"}
     </div>
 
-    ${topColor?`
     <div class="detail-section">
-      <div class="top-colour">⭐ Top Selling Colour: ${topColor}</div>
-    </div>`:""}
+      <div class="top-colour">
+        ⭐ Top Selling Colour: ${topColor || "Not Available"}
+      </div>
+    </div>
 
     <div class="detail-section">
       <strong>Available Colors</strong>
       <div class="color-list">
         ${(selected.Color||"").split(",").map(c=>{
           const n=c.trim();
-          return `<div class="color-item ${n.toLowerCase()==topLower?"top":""}">${n}</div>`;
+          if(!n) return "";
+          return `
+            <div class="color-item ${n.toLowerCase()===topLower?"top":""}">
+              ${n}${n.toLowerCase()===topLower?" ⭐":""}
+            </div>`;
         }).join("")}
       </div>
     </div>`;
