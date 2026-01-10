@@ -357,8 +357,12 @@ function renderRight(){
         <div class="price-value price-total">₹${fmt(selected["TOTAL"])}</div>
       </div>
 
-      ${row("Hyp",selected["Hyp"])}
-      ${row("Total HP",selected["Total HP"])}
+      ${row("Hyp",selected["Hypothication"])}
+
+      <div class="price-row">
+        <div class="price-label">Total HP</div>
+        <div class="price-value price-total">₹${fmt(selected["TOTAL HP"])}</div>
+      </div>
     </div>`;
 }
 
@@ -388,4 +392,5 @@ window.onload=loadData;
 
 </body>
 </html>
+
 
