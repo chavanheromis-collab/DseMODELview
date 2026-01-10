@@ -357,7 +357,12 @@ function renderRight(){
       </div>
 
       ${row("Hyp", selected["Hypothication"])}
-      ${row("Total HP", selected["TOTAL HP"])}
+      
+      <div class="price-row">
+        <div class="price-label">Total HP</div>
+        <div class="price-value price-total">₹${fmt(selected["TOTAL HP"])}</div>
+      </div>
+      
 
     </div>`;
 }
@@ -391,4 +396,5 @@ window.onload=loadData;
 
 </body>
 </html>
+
 
