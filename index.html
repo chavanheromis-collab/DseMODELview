@@ -22,6 +22,7 @@ html,body{
   --bg:#f4f6f9;
   --card:#ffffff;
   --muted:#6b7280;
+  --redify:#ff0000;
 }
 
 /* ================= RESET ================= */
@@ -202,6 +203,10 @@ body{
 }
 .price-total{
   font-size:18px;
+  color:var(--redify);
+}
+.price-totalcrtm{
+  font-size:18px;
   color:var(--accent);
 }
 
@@ -363,7 +368,10 @@ function renderRight(){
         <div class="price-value price-total">₹${fmt(selected["TOTAL HP"])}</div>
       </div>
 
-      ${row("CRTEM",selected["CRTEM"])}
+      <div class="price-row">
+        <div class="price-label">CRTEM</div>
+        <div class="price-value price-totalcrtm">₹${fmt(selected["CRTEM"])}</div>
+      </div>
     </div>`;
 }
 
@@ -393,6 +401,7 @@ window.onload=loadData;
 
 </body>
 </html>
+
 
 
 
